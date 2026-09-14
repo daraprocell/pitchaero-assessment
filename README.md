@@ -92,6 +92,9 @@ The single highest improvement is at 21:00 MST (22%), but these hourly
 results pool correlated forecasts, so I would not overinterpret one hour.
 All diurnal plots use fixed MST (UTC−7), without daylight-saving adjustments.
 
+<img width="1820" height="1170" alt="03_where_it_helps" src="https://github.com/user-attachments/assets/580ed31b-5ce1-4a90-9fd1-4e5a496d2edf" />
+
+
 **`outputs/figures/04_error_structure.png`**
 The error distribution recenters near zero and narrows (σ 1.49 to 1.30 m/s).
 However, the overall improvement is not uniform: RMSE worsens by 6.4% for
@@ -99,6 +102,9 @@ observed winds of 6–8 m/s and 20.0% for 8–10 m/s. The bottom-right panel
 shows bias by observed speed; both forecasts underpredict the strongest
 winds. These observation-conditioned bins describe retrospective errors,
 not conditions identifiable in advance.
+
+<img width="1820" height="1170" alt="04_error_structure" src="https://github.com/user-attachments/assets/2e4ddcd3-a301-4a03-993a-58f27764d721" />
+
 
 The corrected forecasts also have less variability: predicted SD is
 2.13 m/s, versus 2.48 observed and 2.35 for raw HRRR. This is consistent
@@ -121,9 +127,18 @@ The calm day improves modestly (1.03 to 0.98 m/s), but both forecasts miss
 a 3.2 m/s spike at 12 UTC. These examples illustrate that correction
 does not reliably recover every local fluctuation or missed event.
 
+<img width="1690" height="1040" alt="05_case_studies" src="https://github.com/user-attachments/assets/31f18018-9607-4c92-a355-59841391dc9b" />
+
+
 **`outputs/figures/01_qc.png`** documents the data-quality decisions below;
+
+<img width="1820" height="1170" alt="01_qc" src="https://github.com/user-attachments/assets/f963d9ee-a741-4392-9417-ac8900355672" />
+
 **`outputs/figures/02_baseline.png`** documents the target-window comparison
 and the baseline's structure.
+
+<img width="1820" height="1170" alt="02_baseline" src="https://github.com/user-attachments/assets/91d8e336-047e-422a-996c-3fd8e8d641cc" />
+
 
 ---
 
