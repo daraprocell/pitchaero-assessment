@@ -1,0 +1,109 @@
+{
+  "target_definition": {
+    "window_min": [
+      -30,
+      30
+    ],
+    "min_valid_minutes": 45
+  },
+  "rows": {
+    "table": 209224,
+    "usable": 208056,
+    "no_target": 145,
+    "no_hrrr_wind": 1023,
+    "usable_missing_80m": 2710
+  },
+  "target_hours": {
+    "total": 8760,
+    "with_target": 8753
+  },
+  "means_ms": {
+    "obs_minute": 3.9888092357465865,
+    "obs_hourly_target": 3.988281848743877,
+    "hrrr_wind10": 4.174300229906659,
+    "hrrr_log22": 4.781046906989326
+  },
+  "baselines_all_leads": {
+    "raw10_all_usable": {
+      "n": 208056,
+      "rmse": 1.5590279713001365,
+      "mae": 1.1876639895427321,
+      "bias": 0.19222168079128135
+    },
+    "raw10_same_rows_as_log22": {
+      "n": 205346,
+      "rmse": 1.559816675733785,
+      "mae": 1.1879317297450713,
+      "bias": 0.18666168660810067
+    },
+    "log22_same_rows": {
+      "n": 205346,
+      "rmse": 1.8898179622068147,
+      "mae": 1.4433493721229913,
+      "bias": 0.7961010950340265
+    }
+  },
+  "raw10_r": 0.7859107639415618,
+  "window_comparison_f01_f18": [
+    {
+      "window": "1 min",
+      "n": 154742,
+      "rmse": 1.7701,
+      "mae": 1.3642,
+      "bias": 0.1582,
+      "r": 0.7469
+    },
+    {
+      "window": "10 min",
+      "n": 155916,
+      "rmse": 1.6023,
+      "mae": 1.2216,
+      "bias": 0.1498,
+      "r": 0.7799
+    },
+    {
+      "window": "30 min",
+      "n": 156393,
+      "rmse": 1.5389,
+      "mae": 1.1745,
+      "bias": 0.1461,
+      "r": 0.7938
+    },
+    {
+      "window": "60 min",
+      "n": 156474,
+      "rmse": 1.4818,
+      "mae": 1.1355,
+      "bias": 0.1506,
+      "r": 0.8048
+    },
+    {
+      "window": "60 min before",
+      "n": 156457,
+      "rmse": 1.513,
+      "mae": 1.1665,
+      "bias": 0.1503,
+      "r": 0.7963
+    },
+    {
+      "window": "120 min",
+      "n": 156510,
+      "rmse": 1.4115,
+      "mae": 1.0861,
+      "bias": 0.1509,
+      "r": 0.8178
+    }
+  ],
+  "rmse_raw10_f01_f06_vs_f37_f48": [
+    1.3708054364643794,
+    1.9648128048134745
+  ],
+  "checks": {
+    "D1_one_target_per_forecast_row": true,
+    "D2_target_hours_ge_95pct": true,
+    "D3_hourly_mean_matches_minute_mean": true,
+    "D4_target_physical_range": true,
+    "D5_baseline_in_plausible_range": true,
+    "D6_errors_grow_with_lead": true
+  }
+}
