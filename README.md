@@ -172,11 +172,10 @@ but a substantially more useful product. I would pair it with threshold-based sk
 (hit rate / false alarm ratio for hours below ~2 m/s) since RMSE is dominated by the 80% of
 hours below 6 m/s.
 
-**Priority 2 — more HRRR, from the AWS Open Data archive (via Herbie).** Three things I would
+**Priority 2 — more HRRR, from the AWS Open Data archive (via Herbie).** Two things I would
 pull: (a) neighbouring grid points, so the model can learn which cell actually represents the
 site and can see local gradients; (b) HRRR's terrain-height field, to settle the elevation
-question above; (c) a time-lagged ensemble from consecutive runs, whose spread is a free
-uncertainty predictor and usually the single cheapest skill gain in post-processing.
+question above.
 
 **Priority 3 — features with the clearest meteorological rationale.** In rough order of
 expected value: a proper stability parameter (bulk Richardson number or Obukhov length, from
