@@ -1,0 +1,76 @@
+{
+  "rows": {
+    "total": 733994,
+    "sensor_obs": 524770,
+    "hrrr_forecast": 209224
+  },
+  "obs": {
+    "expected_minutes": 525600,
+    "rows": 524770,
+    "minute_buckets_with_2_reports": 498,
+    "wind_fault_rows(0 m/s @ 225deg)": 4877,
+    "real_calm_rows": 11666,
+    "thermo_fault_rows": 45,
+    "pressure_bad_rows": 6561,
+    "valid_wind_minutes": 519893,
+    "max_gap_min": 7.033333333333333
+  },
+  "fault_flag_validation_hrrr10_median_ms": {
+    "fault_signature": 3.4208,
+    "real_calms": 1.7958833333333333,
+    "all_nonzero_obs": 3.7516666666666665
+  },
+  "hrrr": {
+    "runs_present": 8755,
+    "missing_runs": [
+      "2026-02-21 07:00:00+00:00",
+      "2026-02-21 08:00:00+00:00",
+      "2026-02-21 09:00:00+00:00",
+      "2026-02-21 10:00:00+00:00",
+      "2026-02-21 11:00:00+00:00"
+    ],
+    "valid_times": 8760,
+    "rows_per_valid_time_median": 24.0,
+    "max_lead_h": 48.0,
+    "wind10_backfilled_from_uv": 2343,
+    "wind10_vs_hypot_maxdiff": 0.00011609979887372557,
+    "missing_frac": {
+      "hrrr_run_time_utc": 0.0,
+      "hrrr_forecast_hour": 0.0,
+      "hrrr_u10_ms": 0.0049,
+      "hrrr_v10_ms": 0.0049,
+      "hrrr_wind10_ms": 0.0049,
+      "hrrr_gust_ms": 0.013,
+      "hrrr_u80_ms": 0.013,
+      "hrrr_v80_ms": 0.013,
+      "hrrr_t2m_k": 0.0049,
+      "hrrr_d2m_k": 0.013,
+      "hrrr_pressure_sfc_pa": 0.023,
+      "hrrr_pbl_height_m": 0.013,
+      "hrrr_friction_velocity_ms": 0.013,
+      "hrrr_roughness_length_m": 0.013,
+      "hrrr_dswrf_wm2": 0.018,
+      "hrrr_prate_kgm2s": 0.013,
+      "hrrr_total_cloud_pct": 0.013,
+      "hrrr_wind80_ms": 0.013
+    },
+    "roughness_unique_values": 2
+  },
+  "time_alignment": {
+    "peak_lag_wind_min": -5,
+    "peak_lag_temp_min": -15,
+    "r_wind_at_0": 0.8208415276901639,
+    "r_wind_at_peak": 0.8228998026795884
+  },
+  "checks": {
+    "C1_rows_partition": true,
+    "C2_times_in_period": true,
+    "C3_no_duplicate_keys": true,
+    "C4_lead_matches_times": true,
+    "C5_wind10_equals_hypot_uv": true,
+    "C6_fault_flag_distinct_from_calms": true,
+    "C7_obs_wind_coverage_ge_95pct": true,
+    "C8_no_clock_offset_gt_30min": true,
+    "C9_physical_ranges": true
+  }
+}
