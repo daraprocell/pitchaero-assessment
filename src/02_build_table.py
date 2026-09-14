@@ -66,7 +66,7 @@ def build_targets(obs):
     sq, _ = window_stats(ws.to_numpy() ** 2, g0, hours, *WINDOW)
     calm, _ = window_stats(np.where(np.isnan(ws), np.nan, (ws == 0).astype(float)), g0, hours, *WINDOW)
 
-    # Vector-mean direction (speed-weighted), for diagnostics only
+    # Vector-mean direction (speed-weighted)
     rad = np.deg2rad(wd.to_numpy())
     u = -ws.to_numpy() * np.sin(rad)
     v = -ws.to_numpy() * np.cos(rad)

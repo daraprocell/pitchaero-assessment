@@ -130,13 +130,13 @@ def main():
     tr, va, te = (d.split == "train"), (d.split == "val"), (d.split == "test")
     feat = list(X.columns)
 
-    # --- Linear regression: median impute + standardize (LightGBM needs neither)
+    # Linear regression: median impute + standardize (LightGBM needs neither)
     lin = Pipeline([("impute", SimpleImputer(strategy="median")),
                     ("scale", StandardScaler()),
                     ("model", LinearRegression())])
     lin.fit(X[tr], y[tr])
 
-    # --- Gradient boosting. LightGBM when available; sklearn's equivalent otherwise.
+    # Gradient boosting. LightGBM when available; sklearn's equivalent otherwise.
     # Both handle NaN natively (no imputation) and use a validation set for early stopping.
     if HAS_LGB:
         params = dict(objective="regression", metric="rmse", learning_rate=0.05, num_leaves=63,
@@ -186,7 +186,7 @@ def main():
     d["pred_linear"] = lin.predict(X).clip(min=0)
     d["pred_lgbm"] = pd.Series(gbm_predict(X), index=X.index).clip(lower=0)
 
-    # --- Scoring, test set only, identical rows for every model
+    # Scoring, test set only, identical rows for every model
     T = d[te]
     results = {name: scores(T[col], T.obs_ws_mean)
                for name, col in [("raw_hrrr", "base_raw10"), ("linear", "pred_linear"), ("lgbm", "pred_lgbm")]}
@@ -202,7 +202,7 @@ def main():
         r["lgbm_rmse_improvement_pct"] = 100 * (1 - r["lgbm"]["rmse"] / r["raw_hrrr"]["rmse"])
         by_bucket[f"f{lo:02d}-f{hi:02d}"] = r
 
-    # --- Block bootstrap over test days: is the improvement stable, or one lucky week?
+    # Block bootstrap over test days: is the improvement stable, or one lucky week?
     # Resample whole days (not rows) because rows within a day are highly correlated.
     rng = np.random.default_rng(SEED)
     day_code, _ = pd.factorize(T.valid.dt.floor("D"))  # integer codes avoid tz-aware comparison pitfalls
@@ -275,7 +275,7 @@ def main():
     if failed:
         print("VALIDATION FAILED:", failed)
         sys.exit(1)
-    print("All step-3 checks passed.")
+    print("All step 3 checks passed.")
 
 
 if __name__ == "__main__":

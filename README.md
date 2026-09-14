@@ -46,7 +46,7 @@ features, so this is a forecast correction rather than nowcasting. Day-of-year w
 deliberately excluded: with one year of data the model would see each date once and could
 memorise specific weather events. Roughness length was dropped (only two distinct values).
 
-**Split
+**Split**
 Split by UTC valid date: days 8–14 of every month are test, days 20–26 are validation for early stopping, and the remaining days are training, excluding a one-day buffer on either side of each test/validation block. All forecasts sharing a valid hour stay in the same split.
 This evaluates held-out periods within one year at one site, with training dates both before and after test periods. Performance on future years or other sites remains untested. The day-block bootstrap accounts for within-day dependence but may understate uncertainty from multiday weather systems
 
@@ -77,7 +77,7 @@ This evaluates held-out periods within one year at one site, with training dates
 The ladder is the interesting part: a constant shift-and-scale
 (`corrected = 0.493 + 0.848 × HRRR₁₀`) buys 3.5%, letting that correction vary linearly with
 conditions buys 8.2%, and letting it vary non-linearly buys 13.4%. Most of the gain comes
-from removing conditional bias, not from adding forecast skill.
+from removing conditional bias, reducing errors using information already present in HRRR.
 
 ---
 
@@ -149,7 +149,7 @@ and the baseline's structure.
 | **Sensor fault signature** | 4,877 rows read exactly 0 m/s at exactly 225°, usually with pressure = 0. HRRR's median wind at those times is 3.4 m/s vs 1.8 m/s during other 0 m/s reports. These are likely not calms. | Wind set to missing. The 11,666 other zero-wind reports were retained as calms: calm hours matter most for conductor cooling. |
 | **Uncalibrated thermo channels** | Air temp reaching 48.5 °C (likely solar heating); 45 rows with temp and RH both exactly 0; 6,561 rows with pressure 0 or < 80 kPa. | Flagged and excluded from QC use. Not used as features (they are observations, unavailable at forecast time). A bad pressure reading alone doesn't invalidate the wind. |
 | **Clock alignment** | Lagged cross-correlation peaks at −5 min (wind) and −15 min (temp), essentially zero; temp r = 0.98 at zero lag. | No timezone or offset correction needed. |
-| **Sensor gaps** | 524,770 of 525,600 possible minutes; longest gap 7 min; 498 minutes contain two reports (seconds-level jitter). | Averaged onto a regular minute grid; hours with < 45 valid minutes get no target (7 hours). |
+| **Sensor gaps** | 524,770 reports over 525,600 possible minutes; 498 minute buckets contain two reports. | Averaged onto a regular minute grid; hours with < 45 valid minutes get no target (7 hours). |
 | **HRRR missing fields** | 2,343 `wind10` values missing in March but recoverable exactly from u/v; 80 m winds sparse in late March and absent on the final day; 5 runs missing on 21 Feb. | `wind10` back-filled from components (verified identical to 0.01 m/s where both exist). 80 m left missing. LightGBM handles NaN natively. Other runs cover the missing hours. |
 | **Roughness length** | Only 2 distinct values all year. | Dropped as a feature. |
 | **Height mismatch** | Sensor at 22.1 m, HRRR at 10/80 m. A log-profile interpolation to 22.1 m made things worse (RMSE 1.56 → 1.89) because HRRR's 10 m wind already *exceeds* the observed 22 m wind. Damage is worst overnight (RMSE 2.11), when HRRR's 80/10 ratio is 1.59 and the surface has decoupled, so the smooth-profile assumption fails. | Raw 10 m HRRR kept as the baseline; the site-specific offset is left for the model to learn. The 80/10 ratio is retained as a stability feature rather than as an assumed physical relationship. |
@@ -215,5 +215,5 @@ src/04_evaluate.py       evaluation figures and metrics                   → fi
 outputs/                 all generated artefacts (reports, figures, models)
 ```
 
-Random seed fixed at 7
+Random seed fixed at 7.
 Python 3.8/3.12 and LightGBM/sklearn backends.

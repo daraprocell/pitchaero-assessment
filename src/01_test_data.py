@@ -37,7 +37,7 @@ def load(path):
 def qc_obs(obs):
     ws, wd = obs.obs_wind_speed_ms, obs.obs_wind_direction_deg
     # Fault signature: speed exactly 0 with direction exactly 225. Heavily co-occurs with pressure == 0.
-    # Genuine calms report varied directions; this pattern is validated against HRRR below.
+    # Genuine calms report varied directions. This pattern is validated against HRRR below.
     obs["flag_wind_fault"] = (ws == 0) & (wd == 225)
     obs["flag_thermo_fault"] = (obs.obs_air_temp_c == 0) & (obs.obs_rh_pct == 0)
     obs["flag_pressure_bad"] = (obs.obs_pressure_pa == 0) | (obs.obs_pressure_pa < 80000)
@@ -96,7 +96,7 @@ def main():
     obs = qc_obs(obs)
     hrrr, wind10_maxdiff = qc_hrrr(hrrr)
 
-    # HRRR 10 m wind at the nearest hour for each obs minute (short leads only) — used to validate the fault flag
+    # HRRR 10 m wind at the nearest hour for each obs minute — used to validate the fault flag
     hr_ref = hrrr[hrrr.hrrr_forecast_hour.between(1, 6)].groupby("valid").hrrr_wind10_ms.mean()
     obs["hrrr10_ref"] = obs.t.dt.round("h").map(hr_ref)
     med_fault = float(obs.loc[obs.flag_wind_fault, "hrrr10_ref"].median())
@@ -169,7 +169,7 @@ def main():
     if failed:
         print("VALIDATION FAILED:", failed)
         sys.exit(1)
-    print("All step-1 checks passed.")
+    print("All step 1 checks passed.")
 
 
 def make_figure(obs, hrrr, lags, path):
